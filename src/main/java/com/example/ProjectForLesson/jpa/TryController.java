@@ -2,10 +2,7 @@ package com.example.ProjectForLesson.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,5 +22,16 @@ public class TryController {
     public @ResponseBody
     Optional<JPASale> getById(@RequestParam(value = "id") Integer id) {
         return repository.findById(id);
+    }
+
+    @PostMapping(path = "/update")
+    public void update(@RequestBody JPASale jpaSale){
+        repository.save(jpaSale);
+    }
+
+    @GetMapping(path = "/by-amount")
+    public @ResponseBody
+    Iterable<JPASale> findByAmountGreaterThan (@RequestParam(value = "amount") Integer amount){
+        return repository.findByAmountGreaterThan(amount);
     }
 }
