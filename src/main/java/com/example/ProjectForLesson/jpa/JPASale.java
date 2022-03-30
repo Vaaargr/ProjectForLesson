@@ -1,12 +1,17 @@
 package com.example.ProjectForLesson.jpa;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "sales")
 public class JPASale {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -14,38 +19,24 @@ public class JPASale {
     private Integer amount;
 
     @Convert(disableConversion = true)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "incoming_date", nullable = false)
-    private Instant incomingDate;
-
-    @Column(name = "productid", nullable = false)
-    private Integer productid;
+    private Date incomingDate;
 
     @Convert(disableConversion = true)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "sale_date", nullable = false)
-    private Instant saleDate;
+    private Date saleDate;
 
-    public Instant getSaleDate() {
-        return saleDate;
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setSaleDate(Instant saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    public Integer getProductid() {
-        return productid;
-    }
-
-    public void setProductid(Integer productid) {
-        this.productid = productid;
-    }
-
-    public Instant getIncomingDate() {
-        return incomingDate;
-    }
-
-    public void setIncomingDate(Instant incomingDate) {
-        this.incomingDate = incomingDate;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getAmount() {
@@ -56,16 +47,32 @@ public class JPASale {
         this.amount = amount;
     }
 
-    public Integer getId() {
-        return id;
+    public Date getIncomingDate() {
+        return incomingDate;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIncomingDate(Date incomingDate) {
+        this.incomingDate = incomingDate;
+    }
+
+    public Date getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d. Amount: %d. Incoming date: %s. Sale date: %s. Product ID: %d", this.id, this.amount, this.incomingDate, this.saleDate, this.productid);
+        return String.format("ID: %d. Amount: %d. Incoming date: %s. Sale date: %s. Product ID: %d", this.id, this.amount, this.incomingDate, this.saleDate, this.productId);
     }
 }

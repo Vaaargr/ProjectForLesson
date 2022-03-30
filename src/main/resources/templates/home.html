@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:inline="text">Manager in use: [[${name}]]</h2>
+<h3>Add sale to base</h3>
+<form th:action="@{/update}" th:object="${jpaSale}" method="post">
+    <table border="1px">
+        <tr>
+            <td>
+                <label>Amount :</label>
+                <input type="number" name="amount" th:field="*{amount}">
+            </td>
+            <td>
+                <label>Incoming date :</label>
+                <input type="date" name="incomingDate" th:field="*{incomingDate}">
+            </td>
+            <td>
+                <label>Sale date :</label>
+                <input type="date" name="saleDate" th:field="*{saleDate}">
+            </td>
+            <td>
+                <label>Product ID :</label>
+                <input type="number" name="productId" th:field="*{productId}">
+            </td>
+            <td>
+                <input type="submit" value="Add Sale">
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<h3>Sales list :</h3>
+<table border="1px">
+    <tr>
+        <td>ID</td>
+        <td>Amount</td>
+        <td>Incoming Date</td>
+        <td>Sale Date</td>
+        <td>Product ID</td>
+    </tr>
+    <tr th:each="sale : ${salesList}">
+        <td th:text="${sale.id}"></td>
+        <td th:text="${sale.amount}"></td>
+        <td th:text="${sale.incomingDate}"></td>
+        <td th:text="${sale.saleDate}"></td>
+        <td th:text="${sale.productId}"></td>
+    </tr>
+</table>
+</body>
+</html>
